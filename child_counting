@@ -1,0 +1,17 @@
+total_gamer: list = int(input())
+count: int = int(input())
+
+def main(volume, tact):
+    
+    if tact == 1 or tact == 0:
+        return volume
+    else:
+        volume -=1
+        return main(volume-1, tact - 1)
+        
+    
+
+if __name__ in '__main__':
+   print (str(main(total_gamer, count)))
+
+    
