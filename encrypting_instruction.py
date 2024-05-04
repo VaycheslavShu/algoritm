@@ -1,28 +1,32 @@
-def encrypting(text:str, number = None):
+def encrypting(text:str, pos = 0):
     count: str = ''
     encript_str: list = []
     res: str = ''
     temp_str: list= []
+    
 
     if text.isalpha():
         return text
     else:
-       
-        for left in range(len(text)):
-            if text[left] in '1234567890':
-                count += text[left]                
-            if text[left] == '[':
-                i = text.find(']')
-                res += encrypting(text[left+1:i]) * int(count)  
-                left =i+1          
-            if text[left] in ']':
-               
-                #res += text[left] 
+        i = 0
+        while i < len(text):
+        
+            if text[i] in '1234567890':
+                count += text[i]                
+            if text[i] == '[':
+                temp_str = encrypting(text[i+1:]) * int(count)
+                i += len(temp_str) + 1
+                #i = pos
+                res += temp_str 
+                count = ''
+                continue  # написать сдвиг вправа
+            if text[i] in ']':
                 count = ''
                 return res
-            if text[left] not in '1234567890[]':
-                res += text[left]
-             
+            if text[i] not in '1234567890[]':
+                res += text[i]
+                         
+            i += 1  
            
         return res      
     
