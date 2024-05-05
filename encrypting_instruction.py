@@ -1,31 +1,43 @@
-def encrypting(text:str, pos = 0):
+def encrypting(text:str):
     count: str = ''
-    encript_str: list = []
     res: str = ''
-    temp_str: list= []
-    
+    bracket: int = 0
+     
 
     if text.isalpha():
         return text
     else:
-        i = 0
+        i: int = 0
         while i < len(text):
-        
             if text[i] in '1234567890':
                 count += text[i]                
+            
             if text[i] == '[':
-                temp_str = encrypting(text[i+1:]) * int(count)
-                i += len(temp_str) + 1
-                #i = pos
-                res += temp_str 
+                bracket += 1
+                k: int = i
+                while k < len(text):
+                    #нахождение индекса закрывающей скобки
+                    if text[k] in ']':
+                        j: int = k
+                        break
+                    else:
+                        j = k + 1 
+                    k += 1   
+                   #вырезка текста в скобках и вызов рекурсии
+                res += encrypting(text[i+1:j]) * int(count)
+                i = j + 1
+                j = 0
+                #res += temp_str 
                 count = ''
                 continue  # написать сдвиг вправа
             if text[i] in ']':
                 count = ''
-                return res
+                bracket -= 1  # Уменьшаем счетчик скобок
+               
+                    
+                     # Проверяем, что скобки соответствуют друг другу               
             if text[i] not in '1234567890[]':
                 res += text[i]
-                         
             i += 1  
            
         return res      
