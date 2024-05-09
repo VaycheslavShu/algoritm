@@ -1,26 +1,28 @@
-def sort_insert_array(count_s, list1, count_d, list_d): 
- 
-    result = []
-    for i in range(count_s):
-        # Находим позицию элемента шаблона в исходном массиве
-        if i < int(count_d):
-            pos = list1.index(list_d[i])
-        # Добавляем элемент в результат
-            result.append(list1[pos])
-        # Удаляем элемент из исходного массива, чтобы он не был добавлен повторно
-            del list1[pos]
-        else:
-            current = list1[i]
-            prev = i - 1
-        
-            while prev >= 0 and list1[prev] > current:
-                list1[prev + 1] = list1[prev]
-                prev -= 1
-        # Вставляем current в отсортированную часть массива на нужное место.
-            list1[prev + 1] = current 
-        #del list1[pos]
 
-    return result
+def sort_insert_array(list1, count_d, key): 
+ 
+    
+    for i in range(1,len(list1)):
+        current = list1[i]
+        prev = i - 1
+        
+        if i < count_d:
+            pos_l = key[list1[prev]]
+            pos_d = key[current]
+           
+        else:
+            pos_l = list1[prev]
+            pos_d = current
+
+        while prev > 0 and pos_l >= pos_d:
+            list1[prev + 1] = list1[prev]
+            prev -= 1
+        
+        list1[prev + 1] = current
+
+   
+    res = list1
+    return res
 
 
 if __name__ in '__main__':
@@ -29,5 +31,21 @@ if __name__ in '__main__':
     sort_array: list = list(map(int, (input().split(' '))))
     count_def_array: int = int(input()) 
     def_array: list = list(map(int, (input().split(' '))))
-    print(str(sort_insert_array(count_sort_array, sort_array, count_def_array, def_array)))
+    print(sort_insert_array(sort_array, count_def_array, def_array))
  
+""" for i in range(1,count_s):
+        current = list1[i]
+        prev = i - 1
+        if i < count_d:
+
+
+            pos_l =list_d[list1[prev]]
+            pos_d = list_d[current]
+        else:
+            pos_l = list1[prev]
+            pos_d = current
+        while prev >= 0 and pos_l > pos_d:
+            list1[prev + 1] = list1[prev]
+            prev -= 1
+        
+        list1[prev + 1] = pos_d""" 
